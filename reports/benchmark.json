@@ -1,0 +1,4170 @@
+{
+  "models": {
+    "embedding": [
+      "sentence-transformers/all-MiniLM-L6-v2",
+      "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    ],
+    "reranker": [
+      "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+    ],
+    "answerability": [
+      "deepset/minilm-uncased-squad2",
+      "934656cdda79824eabf503ed56e15c01ddbdbe3f"
+    ],
+    "generator": [
+      "google/flan-t5-base",
+      "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+    ]
+  },
+  "passages": 35,
+  "questions": 45,
+  "answerable_questions": 35,
+  "relevance_threshold_logit": 0.0,
+  "answerability_threshold": 0.3,
+  "summary": {
+    "bm25": {
+      "precision_at_1": 0.7429,
+      "precision_at_3": 0.2952,
+      "answered": 34,
+      "coverage": 0.7556,
+      "proxy_hallucinations": 9,
+      "proxy_hallucination_rate_among_answers": 0.2647,
+      "proxy_hallucination_rate_among_questions": 0.2,
+      "answerable_accuracy": 0.7143,
+      "correct_abstentions": 3,
+      "failure_counts": {
+        "missed_answer": 8,
+        "answer_not_in_source": 1,
+        "irrelevant_citation": 1,
+        "unanswerable_claim": 7
+      }
+    },
+    "hybrid_reranked": {
+      "precision_at_1": 0.9714,
+      "precision_at_3": 0.3333,
+      "answered": 42,
+      "coverage": 0.9333,
+      "proxy_hallucinations": 10,
+      "proxy_hallucination_rate_among_answers": 0.2381,
+      "proxy_hallucination_rate_among_questions": 0.2222,
+      "answerable_accuracy": 0.9143,
+      "correct_abstentions": 3,
+      "failure_counts": {
+        "irrelevant_citation": 1,
+        "answer_mismatch": 1,
+        "answer_not_in_source": 1,
+        "unanswerable_claim": 7
+      }
+    },
+    "grounded": {
+      "precision_at_1": 0.9714,
+      "precision_at_3": 0.3333,
+      "answered": 33,
+      "coverage": 0.7333,
+      "proxy_hallucinations": 4,
+      "proxy_hallucination_rate_among_answers": 0.1212,
+      "proxy_hallucination_rate_among_questions": 0.0889,
+      "answerable_accuracy": 0.8286,
+      "correct_abstentions": 6,
+      "failure_counts": {
+        "missed_answer": 6,
+        "unanswerable_claim": 4
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "q01",
+      "question": "How long can a staff member go without signing in before the company suspends their account?",
+      "relevant": [
+        "accounts.md#Dormant employee accounts"
+      ],
+      "answers": [
+        "45 consecutive days",
+        "45 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 9.6946
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 5.5694
+            },
+            {
+              "source": "backup.md#Restore rehearsal",
+              "passage_id": "ea3a085709d76f43fa30ae15",
+              "score": 4.7889
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.0
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": 6.0174
+            },
+            {
+              "source": "accounts.md#Dormant contractor accounts",
+              "passage_id": "090aac1f6824110c0886bea5",
+              "score": 0.7929
+            },
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": -6.3603
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "45 consecutive days",
+          "citation": "accounts.md#Dormant employee accounts",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": 6.0174
+            },
+            {
+              "source": "accounts.md#Dormant contractor accounts",
+              "passage_id": "090aac1f6824110c0886bea5",
+              "score": 0.7929
+            },
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": -6.3603
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "45 consecutive days",
+          "citation": "accounts.md#Dormant employee accounts",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q02",
+      "question": "How long can an outside hire stay idle before their login is shut off?",
+      "relevant": [
+        "accounts.md#Dormant contractor accounts"
+      ],
+      "answers": [
+        "14 consecutive days",
+        "14 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 4.7288
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 3.6429
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 2.479
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.0
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -3.7604
+            },
+            {
+              "source": "accounts.md#Dormant contractor accounts",
+              "passage_id": "090aac1f6824110c0886bea5",
+              "score": -6.7887
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -7.7807
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "45 consecutive days",
+          "citation": "accounts.md#Dormant employee accounts",
+          "abstention_reason": null,
+          "failure": "irrelevant_citation"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -3.7604
+            },
+            {
+              "source": "accounts.md#Dormant contractor accounts",
+              "passage_id": "090aac1f6824110c0886bea5",
+              "score": -6.7887
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -7.7807
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q03",
+      "question": "How long does a break-glass token remain valid?",
+      "relevant": [
+        "accounts.md#Emergency access"
+      ],
+      "answers": [
+        "30 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 9.2671
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 1.1302
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 1.0069
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "30 minutes",
+          "citation": "accounts.md#Emergency access",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 8.0481
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -5.9691
+            },
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -6.3414
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "30 minutes",
+          "citation": "accounts.md#Emergency access",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 8.0481
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -5.9691
+            },
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -6.3414
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "30 minutes",
+          "citation": "accounts.md#Emergency access",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q04",
+      "question": "How does the service desk confirm a staff member's identity before sending a recovery link?",
+      "relevant": [
+        "accounts.md#Recovery verification"
+      ],
+      "answers": [
+        "live video call",
+        "a live video call"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 17.6455
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 8.5265
+            },
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 4.7131
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "live video call",
+          "citation": "accounts.md#Recovery verification",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 7.198
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": -6.8381
+            },
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -7.2097
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "live video call",
+          "citation": "accounts.md#Recovery verification",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 7.198
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": -6.8381
+            },
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": -7.2097
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "live video call",
+          "citation": "accounts.md#Recovery verification",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q05",
+      "question": "When does the temporary production administrator elevation expire?",
+      "relevant": [
+        "accounts.md#Temporary privileged access"
+      ],
+      "answers": [
+        "90 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 10.7183
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 4.1252
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 2.3273
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "90 minutes",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 7.1646
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -6.0713
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -7.6027
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "90 minutes",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 7.1646
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -6.0713
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -7.6027
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "90 minutes",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q06",
+      "question": "How many physical authentication devices are given to each new platform operator?",
+      "relevant": [
+        "accounts.md#Hardware keys"
+      ],
+      "answers": [
+        "two",
+        "2",
+        "two hardware security keys"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 4.7139
+            },
+            {
+              "source": "accounts.md#Hardware keys",
+              "passage_id": "e08d21b328706b09af3987b0",
+              "score": 4.5244
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 3.6417
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Hardware keys",
+              "passage_id": "e08d21b328706b09af3987b0",
+              "score": 1.4971
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": -8.3628
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -11.1758
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "two",
+          "citation": "accounts.md#Hardware keys",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Hardware keys",
+              "passage_id": "e08d21b328706b09af3987b0",
+              "score": 1.4971
+            },
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": -8.3628
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -11.1758
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "two",
+          "citation": "accounts.md#Hardware keys",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q07",
+      "question": "How often are credentials for production service accounts changed?",
+      "relevant": [
+        "accounts.md#Service identity rotation"
+      ],
+      "answers": [
+        "60 days",
+        "every 60 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 6.3096
+            },
+            {
+              "source": "accounts.md#Dormant employee accounts",
+              "passage_id": "6614f9774b9e1fbd51188a8a",
+              "score": 5.9511
+            },
+            {
+              "source": "accounts.md#Dormant contractor accounts",
+              "passage_id": "090aac1f6824110c0886bea5",
+              "score": 4.0259
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 60 days",
+          "citation": "accounts.md#Service identity rotation",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 8.2615
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -1.8546
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -2.3323
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 60 days",
+          "citation": "accounts.md#Service identity rotation",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Service identity rotation",
+              "passage_id": "6d3c7052efa4570784d23f81",
+              "score": 8.2615
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -1.8546
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -2.3323
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 60 days",
+          "citation": "accounts.md#Service identity rotation",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q08",
+      "question": "What is the tolerable data-loss window for the main customer database?",
+      "relevant": [
+        "backup.md#Customer database recovery"
+      ],
+      "answers": [
+        "15 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 7.9084
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 6.2693
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 5.7466
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "15 minutes",
+          "citation": "backup.md#Customer database recovery",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": -1.7296
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": -9.5279
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -9.866
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "15 minutes",
+          "citation": "backup.md#Customer database recovery",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": -1.7296
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": -9.5279
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -9.866
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q09",
+      "question": "What is the recovery point objective for the billing database?",
+      "relevant": [
+        "backup.md#Billing database recovery"
+      ],
+      "answers": [
+        "5 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 17.1811
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 13.4652
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 4.845
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "backup.md#Billing database recovery",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 9.5622
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 7.2019
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": -5.8033
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "backup.md#Billing database recovery",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 9.5622
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 7.2019
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": -5.8033
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "backup.md#Billing database recovery",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q10",
+      "question": "How long are staging database snapshots available?",
+      "relevant": [
+        "backup.md#Staging snapshots"
+      ],
+      "answers": [
+        "7 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 9.3728
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 7.3493
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 5.712
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "7 days",
+          "citation": "backup.md#Staging snapshots",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 9.1185
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 5.6197
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 1.6202
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "7 days",
+          "citation": "backup.md#Staging snapshots",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 9.1185
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 5.6197
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 1.6202
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "7 days",
+          "citation": "backup.md#Staging snapshots",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q11",
+      "question": "How many days of production database snapshots are kept?",
+      "relevant": [
+        "backup.md#Production snapshots"
+      ],
+      "answers": [
+        "35 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 8.2388
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 8.175
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 6.0422
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "35 days",
+          "citation": "backup.md#Production snapshots",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 10.2247
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 7.2955
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 3.0291
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "35 days",
+          "citation": "backup.md#Production snapshots",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 10.2247
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 7.2955
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 3.0291
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "35 days",
+          "citation": "backup.md#Production snapshots",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q12",
+      "question": "For how many months are archived access audit records kept?",
+      "relevant": [
+        "backup.md#Audit archive"
+      ],
+      "answers": [
+        "18 months",
+        "18"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 18.5112
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": 4.3638
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 3.3523
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "18",
+          "citation": "backup.md#Audit archive",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 9.9187
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -5.3217
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -7.4402
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "18",
+          "citation": "backup.md#Audit archive",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 9.9187
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -5.3217
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -7.4402
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "18",
+          "citation": "backup.md#Audit archive",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q13",
+      "question": "On which day is the monthly reconstruction drill for production held?",
+      "relevant": [
+        "backup.md#Restore rehearsal"
+      ],
+      "answers": [
+        "first Tuesday",
+        "the first Tuesday",
+        "first Tuesday of each month",
+        "the first Tuesday of each month"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 4.2069
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 3.9754
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 3.8329
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.0
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Restore rehearsal",
+              "passage_id": "ea3a085709d76f43fa30ae15",
+              "score": -3.3394
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -5.5448
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -8.006
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "Tuesday",
+          "citation": "backup.md#Restore rehearsal",
+          "abstention_reason": null,
+          "failure": "answer_mismatch"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Restore rehearsal",
+              "passage_id": "ea3a085709d76f43fa30ae15",
+              "score": -3.3394
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -5.5448
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -8.006
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q14",
+      "question": "What encryption algorithm protects database snapshots?",
+      "relevant": [
+        "backup.md#Backup encryption"
+      ],
+      "answers": [
+        "AES-256",
+        "AES 256"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": 5.3019
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 5.1139
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 4.8184
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.0
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Backup encryption",
+              "passage_id": "7387bb9b1ac317891282e2fe",
+              "score": 2.9885
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -2.809
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -3.9358
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "AES-256",
+          "citation": "backup.md#Backup encryption",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Backup encryption",
+              "passage_id": "7387bb9b1ac317891282e2fe",
+              "score": 2.9885
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -2.809
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -3.9358
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "AES-256",
+          "citation": "backup.md#Backup encryption",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q15",
+      "question": "What is the deadline to acknowledge the most critical production page?",
+      "relevant": [
+        "incidents.md#Critical incident acknowledgement"
+      ],
+      "answers": [
+        "5 minutes",
+        "within 5 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 9.4646
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 6.822
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 3.6417
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "incidents.md#Critical incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 4.1076
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 0.6472
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -9.1297
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "incidents.md#Critical incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 4.1076
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 0.6472
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -9.1297
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 minutes",
+          "citation": "incidents.md#Critical incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q16",
+      "question": "How quickly must an on-call responder acknowledge a severity-two alert?",
+      "relevant": [
+        "incidents.md#High incident acknowledgement"
+      ],
+      "answers": [
+        "20 minutes",
+        "within 20 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 18.3283
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 15.6858
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 5.161
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "within 20 minutes",
+          "citation": "incidents.md#High incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 9.6905
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 8.9809
+            },
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": -0.838
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "within 20 minutes",
+          "citation": "incidents.md#High incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 9.6905
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 8.9809
+            },
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": -0.838
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "within 20 minutes",
+          "citation": "incidents.md#High incident acknowledgement",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q17",
+      "question": "How frequently should the public hear from us during a severity-one outage?",
+      "relevant": [
+        "incidents.md#Customer status updates"
+      ],
+      "answers": [
+        "30 minutes",
+        "every 30 minutes"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": 11.5366
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 6.627
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 6.1132
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 30 minutes",
+          "citation": "incidents.md#Customer status updates",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": 4.4636
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 0.8506
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -0.9853
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 30 minutes",
+          "citation": "incidents.md#Customer status updates",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": 4.4636
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 0.8506
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -0.9853
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "every 30 minutes",
+          "citation": "incidents.md#Customer status updates",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q18",
+      "question": "How soon after service returns must the incident commander publish the postmortem?",
+      "relevant": [
+        "incidents.md#Incident review"
+      ],
+      "answers": [
+        "3 business days",
+        "within 3 business days",
+        "3 business days of recovery",
+        "within 3 business days of recovery"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 6.5871
+            },
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": 5.924
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 4.8348
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": 5.6104
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": -5.3779
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -5.4805
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "3 business days",
+          "citation": "incidents.md#Incident review",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": 5.6104
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": -5.3779
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -5.4805
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "3 business days",
+          "citation": "incidents.md#Incident review",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q19",
+      "question": "Who picks the person in charge of coordinating a major incident?",
+      "relevant": [
+        "incidents.md#Incident ownership"
+      ],
+      "answers": [
+        "duty manager",
+        "the duty manager"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 7.1664
+            },
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": 4.9264
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 4.434
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "The duty manager",
+          "citation": "incidents.md#Incident ownership",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 4.6453
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": -5.5125
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -6.0215
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "The duty manager",
+          "citation": "incidents.md#Incident ownership",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 4.6453
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": -5.5125
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -6.0215
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "The duty manager",
+          "citation": "incidents.md#Incident ownership",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q20",
+      "question": "Where should customers look for public service announcements?",
+      "relevant": [
+        "incidents.md#Customer status channels"
+      ],
+      "answers": [
+        "status page",
+        "the status page"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": 7.3754
+            },
+            {
+              "source": "accounts.md#Hardware keys",
+              "passage_id": "e08d21b328706b09af3987b0",
+              "score": 3.1239
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 3.0392
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "status page",
+          "citation": "incidents.md#Customer status channels",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": 3.748
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -6.5717
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -9.991
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "status page",
+          "citation": "incidents.md#Customer status channels",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": 3.748
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -6.5717
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -9.991
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "status page",
+          "citation": "incidents.md#Customer status channels",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q21",
+      "question": "What is the named meeting invite that responders use when their incident chat is down?",
+      "relevant": [
+        "incidents.md#Emergency videoconference"
+      ],
+      "answers": [
+        "Ops Bridge"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 7.777
+            },
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": 7.23
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 3.5146
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": -2.4417
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -5.4875
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -5.7973
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "Ops Bridge",
+          "citation": "incidents.md#Emergency videoconference",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": -2.4417
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -5.4875
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -5.7973
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q22",
+      "question": "At what UTC time does the Friday freeze for routine production deployments begin?",
+      "relevant": [
+        "releases.md#Production change freeze"
+      ],
+      "answers": [
+        "16:00 UTC",
+        "16:00"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 16.744
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 7.9277
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 4.8688
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "16:00",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 8.4563
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 3.9623
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -6.4776
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "16:00",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 8.4563
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 3.9623
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -6.4776
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "16:00",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q23",
+      "question": "Until what time on Friday can routine staging deployments run?",
+      "relevant": [
+        "releases.md#Staging deploy window"
+      ],
+      "answers": [
+        "22:00 UTC",
+        "22:00"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 12.2132
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 11.1594
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 3.6977
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "22:00 UTC",
+          "citation": "releases.md#Staging deploy window",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 8.9257
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 5.8908
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -4.1103
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "22:00 UTC",
+          "citation": "releases.md#Staging deploy window",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 8.9257
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 5.8908
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -4.1103
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "22:00 UTC",
+          "citation": "releases.md#Staging deploy window",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q24",
+      "question": "What share of users sees a fresh build at the beginning of a canary rollout?",
+      "relevant": [
+        "releases.md#Canary traffic"
+      ],
+      "answers": [
+        "5 percent",
+        "5%",
+        "5 percent of customer traffic"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 5.4454
+            },
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": 4.8163
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": 4.1509
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": "missed_answer"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": -2.1287
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -4.8744
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": -10.9525
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "5 percent",
+          "citation": "releases.md#Canary traffic",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": -2.1287
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -4.8744
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": -10.9525
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q25",
+      "question": "What error-rate percentage triggers a canary rollback if sustained for ten minutes?",
+      "relevant": [
+        "releases.md#Rollback trigger"
+      ],
+      "answers": [
+        "2 percent",
+        "2%",
+        "2"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": 16.8067
+            },
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": 5.404
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 4.6178
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2",
+          "citation": "releases.md#Rollback trigger",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": 7.9081
+            },
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": -1.6122
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": -9.9535
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2",
+          "citation": "releases.md#Rollback trigger",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": 7.9081
+            },
+            {
+              "source": "releases.md#Canary traffic",
+              "passage_id": "f3d1e1f4d44e9a2de1dd5eb7",
+              "score": -1.6122
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": -9.9535
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2",
+          "citation": "releases.md#Rollback trigger",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q26",
+      "question": "Which two roles must approve an emergency production deployment?",
+      "relevant": [
+        "releases.md#Emergency release approval"
+      ],
+      "answers": [
+        "incident commander and the release coordinator",
+        "the incident commander and the release coordinator",
+        "both the incident commander and the release coordinator",
+        "incident commander and release coordinator"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 8.8626
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": 5.8151
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 3.1726
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "incident commander and release coordinator",
+          "citation": "releases.md#Emergency release approval",
+          "abstention_reason": null,
+          "failure": "answer_not_in_source"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 8.2978
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -2.4849
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -4.0232
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "incident commander and release coordinator",
+          "citation": "releases.md#Emergency release approval",
+          "abstention_reason": null,
+          "failure": "answer_not_in_source"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 8.2978
+            },
+            {
+              "source": "incidents.md#High incident acknowledgement",
+              "passage_id": "e78c140f0c1313c77464b4f3",
+              "score": -2.4849
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -4.0232
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "answer_not_in_source",
+          "failure": "missed_answer"
+        }
+      }
+    },
+    {
+      "id": "q27",
+      "question": "How long are signed release artifacts kept in the registry?",
+      "relevant": [
+        "releases.md#Artifact retention"
+      ],
+      "answers": [
+        "180 days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": 17.4876
+            },
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 3.5674
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 3.0336
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "180 days",
+          "citation": "releases.md#Artifact retention",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": 10.3218
+            },
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": -3.6302
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -5.7464
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "180 days",
+          "citation": "releases.md#Artifact retention",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": 10.3218
+            },
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": -3.6302
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -5.7464
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "180 days",
+          "citation": "releases.md#Artifact retention",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q28",
+      "question": "Where does the coordinator check the restored version after reverting a deployment?",
+      "relevant": [
+        "releases.md#Rollback validation"
+      ],
+      "answers": [
+        "deployment dashboard",
+        "the deployment dashboard",
+        "dashboard"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 11.9423
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 5.8761
+            },
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": 4.5104
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "dashboard",
+          "citation": "releases.md#Rollback validation",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 3.2013
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -4.553
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -6.1532
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "dashboard",
+          "citation": "releases.md#Rollback validation",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 3.2013
+            },
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": -4.553
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -6.1532
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "dashboard",
+          "citation": "releases.md#Rollback validation",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q29",
+      "question": "How soon does a standard support subscriber get an initial reply on an ordinary issue?",
+      "relevant": [
+        "support.md#Standard response"
+      ],
+      "answers": [
+        "8 business hours",
+        "within 8 business hours"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 7.807
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 4.3285
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 4.2226
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "8 business hours",
+          "citation": "support.md#Standard response",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 5.9989
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 2.2959
+            },
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": -3.896
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "8 business hours",
+          "citation": "support.md#Standard response",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 5.9989
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 2.2959
+            },
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": -3.896
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "8 business hours",
+          "citation": "support.md#Standard response",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q30",
+      "question": "What is the premium support SLA for a first reply to a normal request?",
+      "relevant": [
+        "support.md#Premium response"
+      ],
+      "answers": [
+        "2 business hours",
+        "within 2 business hours"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 15.1894
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 10.6521
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 6.1936
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 6.1981
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 3.5527
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -5.1883
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 6.1981
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 3.5527
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -5.1883
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q31",
+      "question": "Which file format is used to download closed support tickets?",
+      "relevant": [
+        "support.md#Support exports"
+      ],
+      "answers": [
+        "CSV",
+        "CSV format"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": 11.4375
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": 6.5014
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 5.515
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "CSV",
+          "citation": "support.md#Support exports",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": 7.3923
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 1.7508
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": -7.0827
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "CSV",
+          "citation": "support.md#Support exports",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": 7.3923
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 1.7508
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": -7.0827
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "CSV",
+          "citation": "support.md#Support exports",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q32",
+      "question": "What is the size limit for a single attachment to a support ticket?",
+      "relevant": [
+        "support.md#Support attachments"
+      ],
+      "answers": [
+        "25 MB",
+        "up to 25 MB"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 8.7248
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": 5.4995
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": 4.9071
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "25 MB",
+          "citation": "support.md#Support attachments",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 5.152
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": -4.3896
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": -8.9732
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "25 MB",
+          "citation": "support.md#Support attachments",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 5.152
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": -4.3896
+            },
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": -8.9732
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "25 MB",
+          "citation": "support.md#Support attachments",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q33",
+      "question": "How much time does a client have to challenge an invoice?",
+      "relevant": [
+        "support.md#Billing dispute"
+      ],
+      "answers": [
+        "30 calendar days",
+        "30 calendar days of the invoice date",
+        "within 30 calendar days"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 5.991
+            },
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 3.6596
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 3.0324
+            }
+          ],
+          "precision": {
+            "1": 0.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "25 MB",
+          "citation": "support.md#Support attachments",
+          "abstention_reason": null,
+          "failure": "irrelevant_citation"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 4.1792
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -5.3218
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -5.4911
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "30 calendar days",
+          "citation": "support.md#Billing dispute",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 4.1792
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -5.3218
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -5.4911
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "30 calendar days",
+          "citation": "support.md#Billing dispute",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q34",
+      "question": "Which two languages can the support desk write in directly?",
+      "relevant": [
+        "support.md#Customer languages"
+      ],
+      "answers": [
+        "English and French"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": 8.9151
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 4.9314
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": 3.6803
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "English and French",
+          "citation": "support.md#Customer languages",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": 5.8182
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -9.305
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": -9.5785
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "English and French",
+          "citation": "support.md#Customer languages",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Customer languages",
+              "passage_id": "f324188ac905dad111d4d992",
+              "score": 5.8182
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -9.305
+            },
+            {
+              "source": "support.md#Support exports",
+              "passage_id": "f185e78349e9be335d1e585c",
+              "score": -9.5785
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "English and French",
+          "citation": "support.md#Customer languages",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q35",
+      "question": "Who watches critical customer requests on public holidays?",
+      "relevant": [
+        "support.md#Support holiday cover"
+      ],
+      "answers": [
+        "duty team",
+        "the duty team"
+      ],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 11.374
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": 5.0862
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": 3.546
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "the duty team",
+          "citation": "support.md#Support holiday cover",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 6.0771
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -8.865
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": -9.4689
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "the duty team",
+          "citation": "support.md#Support holiday cover",
+          "abstention_reason": null,
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 6.0771
+            },
+            {
+              "source": "incidents.md#Critical incident acknowledgement",
+              "passage_id": "3a854f8e1f5a91255673e864",
+              "score": -8.865
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": -9.4689
+            }
+          ],
+          "precision": {
+            "1": 1.0,
+            "3": 0.3333333333333333
+          },
+          "answer": "the duty team",
+          "citation": "support.md#Support holiday cover",
+          "abstention_reason": null,
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q36",
+      "question": "What is the recovery time objective for the primary customer database?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 15.556
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 11.0083
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": 4.845
+            }
+          ],
+          "precision": null,
+          "answer": "15 minutes",
+          "citation": "backup.md#Customer database recovery",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 10.0032
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 5.3204
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": -8.4768
+            }
+          ],
+          "precision": null,
+          "answer": "15 minutes",
+          "citation": "backup.md#Customer database recovery",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 10.0032
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 5.3204
+            },
+            {
+              "source": "accounts.md#Recovery verification",
+              "passage_id": "8335b124470bdf43517842bf",
+              "score": -8.4768
+            }
+          ],
+          "precision": null,
+          "answer": "15 minutes",
+          "citation": "backup.md#Customer database recovery",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        }
+      }
+    },
+    {
+      "id": "q37",
+      "question": "When does the standard support plan issue a refund after a billing dispute?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 10.8229
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 10.2546
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": 5.7242
+            }
+          ],
+          "precision": null,
+          "answer": "30 calendar days",
+          "citation": "support.md#Billing dispute",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 2.4127
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -2.0645
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -6.9259
+            }
+          ],
+          "precision": null,
+          "answer": "30 calendar days",
+          "citation": "support.md#Billing dispute",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 2.4127
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -2.0645
+            },
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -6.9259
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "passage_not_answerable",
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q38",
+      "question": "What phone number should people dial to reach the emergency videoconference bridge?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": 11.3796
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": 4.3682
+            },
+            {
+              "source": "accounts.md#Hardware keys",
+              "passage_id": "e08d21b328706b09af3987b0",
+              "score": 4.1153
+            }
+          ],
+          "precision": null,
+          "answer": "Ops Bridge",
+          "citation": "incidents.md#Emergency videoconference",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": 0.2282
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -9.9514
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -10.9744
+            }
+          ],
+          "precision": null,
+          "answer": "Ops Bridge",
+          "citation": "incidents.md#Emergency videoconference",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": 0.2282
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -9.9514
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -10.9744
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "passage_not_answerable",
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q39",
+      "question": "What cloud provider hosts the secondary region for customer backups?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 9.4174
+            },
+            {
+              "source": "backup.md#Backup encryption",
+              "passage_id": "7387bb9b1ac317891282e2fe",
+              "score": 4.1212
+            },
+            {
+              "source": "incidents.md#Customer status channels",
+              "passage_id": "4406f70c4eaffa43ffbd4cc2",
+              "score": 2.547
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 0.8857
+            },
+            {
+              "source": "backup.md#Backup encryption",
+              "passage_id": "7387bb9b1ac317891282e2fe",
+              "score": -6.5543
+            },
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": -10.7338
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 0.8857
+            },
+            {
+              "source": "backup.md#Backup encryption",
+              "passage_id": "7387bb9b1ac317891282e2fe",
+              "score": -6.5543
+            },
+            {
+              "source": "incidents.md#Customer status updates",
+              "passage_id": "83ba8eda5c637ad731ab22cd",
+              "score": -10.7338
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "passage_not_answerable",
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q40",
+      "question": "When does the Monday staging change freeze begin?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 9.8529
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": 4.6891
+            },
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": 4.1252
+            }
+          ],
+          "precision": null,
+          "answer": "08:00 UTC",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 4.6603
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": -4.095
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -9.2821
+            }
+          ],
+          "precision": null,
+          "answer": "08:00 UTC",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "releases.md#Production change freeze",
+              "passage_id": "e3f701f87f9a5cfa44041e96",
+              "score": 4.6603
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": -4.095
+            },
+            {
+              "source": "backup.md#Staging snapshots",
+              "passage_id": "614a1c5b460dd77b5a48b6a6",
+              "score": -9.2821
+            }
+          ],
+          "precision": null,
+          "answer": "08:00 UTC",
+          "citation": "releases.md#Production change freeze",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        }
+      }
+    },
+    {
+      "id": "q41",
+      "question": "Who is the individual assigned to approve this week's temporary privileged access?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 12.0264
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": 6.6998
+            },
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 3.9333
+            }
+          ],
+          "precision": null,
+          "answer": "duty manager",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 2.952
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -9.7853
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -10.8599
+            }
+          ],
+          "precision": null,
+          "answer": "duty manager",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "accounts.md#Temporary privileged access",
+              "passage_id": "4590151f544476a1e4d62479",
+              "score": 2.952
+            },
+            {
+              "source": "releases.md#Emergency release approval",
+              "passage_id": "c93a0e131c23a9913f0b0780",
+              "score": -9.7853
+            },
+            {
+              "source": "accounts.md#Emergency access",
+              "passage_id": "eacf03abd17a007aa611d7bc",
+              "score": -10.8599
+            }
+          ],
+          "precision": null,
+          "answer": "duty manager",
+          "citation": "accounts.md#Temporary privileged access",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        }
+      }
+    },
+    {
+      "id": "q42",
+      "question": "What is the first-response SLA for a critical premium support request?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 16.1451
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 11.6078
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": 5.2771
+            }
+          ],
+          "precision": null,
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 4.5777
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 0.8957
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -3.7857
+            }
+          ],
+          "precision": null,
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 4.5777
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 0.8957
+            },
+            {
+              "source": "support.md#Support holiday cover",
+              "passage_id": "b6cb102b23991d886b1e6fc9",
+              "score": -3.7857
+            }
+          ],
+          "precision": null,
+          "answer": "2 business hours",
+          "citation": "support.md#Premium response",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        }
+      }
+    },
+    {
+      "id": "q43",
+      "question": "How many years do finance transaction records stay in the audit archive?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 13.8792
+            },
+            {
+              "source": "backup.md#Billing database recovery",
+              "passage_id": "cc3ca88506e2f82031fbdd6f",
+              "score": 3.5076
+            },
+            {
+              "source": "support.md#Billing dispute",
+              "passage_id": "699edd0af9820e5b9a9eea6f",
+              "score": 3.4407
+            }
+          ],
+          "precision": null,
+          "answer": "18 months",
+          "citation": "backup.md#Audit archive",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 4.9017
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -8.421
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -8.6423
+            }
+          ],
+          "precision": null,
+          "answer": "18 months",
+          "citation": "backup.md#Audit archive",
+          "abstention_reason": null,
+          "failure": "unanswerable_claim"
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "backup.md#Audit archive",
+              "passage_id": "9d9abeea23fb2c717774205d",
+              "score": 4.9017
+            },
+            {
+              "source": "releases.md#Artifact retention",
+              "passage_id": "4cb0d01c59cdf1068eec9edf",
+              "score": -8.421
+            },
+            {
+              "source": "backup.md#Production snapshots",
+              "passage_id": "88d0e934b3cf42e8e75bfdf6",
+              "score": -8.6423
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "passage_not_answerable",
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q44",
+      "question": "How many planets orbit the Sun?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "releases.md#Rollback validation",
+              "passage_id": "cdfdcfbf853cceb053ddee9b",
+              "score": 1.2004
+            },
+            {
+              "source": "incidents.md#Emergency videoconference",
+              "passage_id": "1e9d43e27c8c20da4616f54a",
+              "score": 1.1857
+            },
+            {
+              "source": "backup.md#Customer database recovery",
+              "passage_id": "dd1ae192d5c3ea6b96a88483",
+              "score": 1.1302
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": -11.1984
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -11.2232
+            },
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": -11.2283
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "incidents.md#Incident ownership",
+              "passage_id": "0a529b5d11c03df3a74b6847",
+              "score": -11.1984
+            },
+            {
+              "source": "releases.md#Rollback trigger",
+              "passage_id": "f778111f11e49dfee2acb676",
+              "score": -11.2232
+            },
+            {
+              "source": "incidents.md#Incident review",
+              "passage_id": "2430c42a82fde0426e5d2eec",
+              "score": -11.2283
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": null
+        }
+      }
+    },
+    {
+      "id": "q45",
+      "question": "What discount is available on the annual premium support plan?",
+      "relevant": [],
+      "answers": [],
+      "stages": {
+        "bm25": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": 10.1512
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": 5.6139
+            },
+            {
+              "source": "releases.md#Staging deploy window",
+              "passage_id": "6ff338ede6257a1e3aaaf9ff",
+              "score": 5.4555
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "hybrid_reranked": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -2.2469
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -8.0646
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -10.4318
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "model_abstained",
+          "failure": null
+        },
+        "grounded": {
+          "retrieved": [
+            {
+              "source": "support.md#Premium response",
+              "passage_id": "01c4e2fc499d7ee58b07dea8",
+              "score": -2.2469
+            },
+            {
+              "source": "support.md#Standard response",
+              "passage_id": "0829de7e8716bc3433e36ca3",
+              "score": -8.0646
+            },
+            {
+              "source": "support.md#Support attachments",
+              "passage_id": "bc11b28b547359850520681f",
+              "score": -10.4318
+            }
+          ],
+          "precision": null,
+          "answer": null,
+          "citation": null,
+          "abstention_reason": "low_relevance",
+          "failure": null
+        }
+      }
+    }
+  ]
+}
